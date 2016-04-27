@@ -36,6 +36,17 @@
 <p>This repository contains the summary of our semester long project for CS3502 taught by Prof. Patrick Bobbie at Kennesaw State University. The purpose of this project was to design and implement an OS Simulator; this simulator will run on a virtual CPU.</p>
 
 <h3>
+<a id="design" class="anchor" href="#design" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Design</h3>
+
+<p>Firstly as a group, we examined the project specification block diagram to get a better understanding of how the system as a whole fit together in the more common practice. After examining the diagram, we read through the phase 1 specifications. We derived a basic concept of how the system flowed in a more simplified view. </p>
+
+<p>The main components that we pulled out were the CPU, the Short Term Scheduler, the Long Term Scheduler, the MMU, the RAM, the Loader, the Disk, and the Driver. We established the driver as the “engine” of the overall process. From there, we ordered the other components in a flow that takes the information provided in the instruction set and loads them onto the disk through the loader component. From there the disk will be accessed by the Long Term Scheduler and jobs will be loaded to RAM. After jobs have been loaded to RAM, the MMU, referred to in the Phase 1 Document as Memory, accesses the jobs needed to be scheduled by the Short Term Scheduler which then in turn utilizes the dispatcher to send jobs to the CPU. The CPU then loops a three part cycle of fetch, decode, and execute until it has run out of instructions at which point, the OS terminates.</p>
+
+<p>For the multiprocessing portion of our OS, we needed to look at three areas: making support for multiple cores, memory management amongst the processors, and the cache of each processor. In our design approach we took note of this and decided to implement the CPU module to handle all of these items as a single processor and then using threads to handle multiple cores. This approach makes it much easier to scale the CPU cores when appropriate. </p>
+
+<p>For phase 2, we went back and reevaluated the design we had for phase 1. In doing this we addressed areas of concern for the parts that we would implement in phase 2. The general architecture idea hasn’t really changed from phase 1. The Major changes came in the form of separating the Dispatcher into its own individual unit and placing it between the ShortTermScheduler and CPU modules, and the implementation of the cache and paging systems. </p>
+
+<h3>
 <a id="ui" class="anchor" href="#ui" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>UI</h3>
 
 <p>The UI consists of the main window that contains that console in which all System.out is routed to. On the main window the user can specify the number of CPU's to run the OS on as well as the Scheduling Type (First in First Out, Shortest Job First, and Non-Preemptive Priority) and the Sleep Time (in ms) for each CPU clock cycle.</p>
